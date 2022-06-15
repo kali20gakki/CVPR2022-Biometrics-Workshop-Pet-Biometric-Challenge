@@ -1,0 +1,43 @@
+encoder_name: resnetv2_101x1_bitm_in21k
+epochs: 200
+batchsize: 168
+optimizer: AdamW
+# 5e-4 * batchsize / 512
+lr: 5e-5
+weight_decay: 0.05
+lr_scheduler: CosineAnnealingLR
+
+# for MultiSimilarityLoss in paper alpha = 2, beta = 50, base = 1
+alpha: 2
+beta: 50
+base: 0.5
+# for MultiSimilarityMiner in paper epsilon = 0.1
+epsilon: 0.1
+
+embedding_size: 2048
+
+use_w_cut: false
+model_name: EmbeddingNetWithBNNeck
+loss_func_name: MultiSimilarityLoss
+loss_cls_name: ArcFaceLoss
+
+imgsz: 224
+logstep: 50
+ema: false
+ckpt_epoch: 190
+k: 6
+stride: 2
+cls_lr_factor: 4
+
+logname: resnetv2_101x1_multisim_ArcFace_b168_k6_224_pseudov5_adamW_cosine_200e
+
+train_json_path: dataset/pet_biometric_challenge_2022/train/train_data_pseudo_v5.json
+train_images_dir: dataset/pet_biometric_challenge_2022/train/images
+
+val_json_path: dataset/pet_biometric_challenge_2022/train/val_data.json
+val_images_dir: dataset/pet_biometric_challenge_2022/train/images
+
+
+predict_ckpt:
+  - 190
+  - 200
